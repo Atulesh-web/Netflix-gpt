@@ -1,7 +1,28 @@
-import { Link } from "react-router-dom";
 import PasswordInput from "./PasswordInput";
 import PasswordInputsEmail from "./PasswordInputEmail";
-const Password = () => {
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+const Password = (props) => {
+  const navigate = useNavigate();
+  const [email,setEmail] = useState(null);
+  const[password,setPassword] = useState(null);
+  const location = useLocation();
+  const receivedData = location.state ? location.state.data : null;
+
+  useEffect(()=>{
+    if(receivedData){
+      setEmail(receivedData)
+      console.log(email,"email")
+    }
+
+  },[email,receivedData])
+  
+  const passEmailandPassword = ()=>{
+    console.log("password",password)
+    navigate("/chooseplan", { state: { data: { email: email,password: password } } });
+  }
+  
   return (
     <div>
       <div className=" bg-white flex justify-between border-b-2 border-gray">
@@ -24,13 +45,11 @@ const Password = () => {
           Create a password to start &nbsp; &nbsp; &nbsp; your membership
         </h1>
         <p className=" text-lg">Just a few more steps and you're done! <br /> We hate paperwork, too.</p>
-        <PasswordInputsEmail/>
-        <PasswordInput/>
-        <Link to={'/chooseplan'}>
-        <button style={{width:"90%"}} className="rounded-md h-14 mt-8 text-lg bg-red-700 p-4 text-white">
+        <PasswordInputsEmail emailValue={email}/>
+        <PasswordInput setPassword={setPassword} password={password}/>
+        <button style={{width:"90%"}} className="rounded-md h-14 mt-8 text-lg bg-red-700 p-4 text-white" onClick={passEmailandPassword}>
               Next
             </button>
-            </Link>
       </div>
      
     </div>

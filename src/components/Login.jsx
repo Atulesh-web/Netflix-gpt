@@ -2,12 +2,25 @@ import { useState } from "react";
 import Header from "./Header";
 import Input from "./Input";
 import SignUp from './SignUp';
+import signinuser from "../utils/signinuser";
+
 const Login = () => {
+
   const [signUp,setSignUp] = useState(false);
+  const [email,setEmail] = useState(null);
+  const [password,setPassword] = useState(null);
   const triggerSignUpPage = () => {
       setSignUp(true)
   };
-  
+  const signInUser = async(e)=>{
+    e.preventDefault()
+    let approved = await signinuser(email,password)
+    if(approved.email){
+      alert("signed in successfully")
+    }
+    
+  }
+
   return signUp ? (
     <SignUp/>
   ) :  (
@@ -26,9 +39,9 @@ const Login = () => {
         <div className=" h-4  m-16">
           <h1 className=" text-3xl font-medium">Sign In</h1>
           <form action="">
-            <Input />
+            <Input setEmail={setEmail} setPassword={setPassword} />
 
-            <button className="rounded-md h-14 mt-8 bg-red-700 p-4 w-80">
+            <button className="rounded-md h-14 mt-8 bg-red-700 p-4 w-80" onClick={signInUser}>
               Sign In
             </button>
           </form>

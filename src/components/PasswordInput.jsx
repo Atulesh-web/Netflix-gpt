@@ -1,5 +1,5 @@
 import { useState } from "react";
-const PasswordInput = () => {
+const PasswordInput = (props) => {
   const [inputStyle1, setInputStyle1] = useState({
     display: "none",
     height: 0,
@@ -48,6 +48,7 @@ const PasswordInput = () => {
   const showEyeIcon = () => {
     let eyeIcon = document.getElementById("eyeIcon");
     let password = document.getElementById("password");
+    props.setPassword(password.value)
     if (password.value.length > 0) {
       eyeIcon.style.display = "block";
     } else {

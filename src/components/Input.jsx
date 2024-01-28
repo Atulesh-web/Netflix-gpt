@@ -1,5 +1,6 @@
 import { useState } from "react";
-const Input = () => {
+const Input = (props) => {
+  const {setEmail,setPassword} = props;
   const [inputStyle, setInputStyle] = useState({
     display: "none",
     height: 0,
@@ -84,12 +85,18 @@ const Input = () => {
   const showEyeIcon = ()=>{
     let eyeIcon = document.getElementById("eyeIcon");
     let password = document.getElementById("password");
+    setPassword(password.value)
     if (password.value.length > 0){
       eyeIcon.style.display = 'block'
     }
     else{
       eyeIcon.style.display = 'none'
     }
+  }
+
+  const setEmailForParent = ()=>{
+    let email = document.getElementById("email");
+    setEmail(email.value)
   }
 
   return (
@@ -102,7 +109,7 @@ const Input = () => {
           className="p-4  text-gray-400"
           onClick={expandInput}
           style={{
-            transition: "height 0.3s ease, width 0.3s ease, padding 0.3s ease",
+            transition: "height 0.6s ease, width 0.6s ease, padding 0.6s ease",
             ...labelStyle,
           }}
         >
@@ -115,11 +122,12 @@ const Input = () => {
           autoComplete="username"
           style={{
             backgroundColor: "#333333",
-            transition: "height 0.3s ease, width 0.3s ease",
+            transition: "height 0.6s ease, width 0.6s ease,padding 0.6s ease",
             ...inputStyle,
           }}
           className="outline-none"
           onBlur={removeStyleStates}
+          onChange={setEmailForParent}
         />
       </div>
       <div
@@ -130,7 +138,7 @@ const Input = () => {
           className="p-4  text-gray-400"
           onClick={expandInput2}
           style={{
-            transition: "height 0.3s ease, width 0.3s ease, padding 0.3s ease",
+            transition: "height 0.6s ease, width 0.6s ease, padding 0.6s ease",
             ...labelStyle1,
           }}
         >
@@ -145,7 +153,7 @@ const Input = () => {
             style={{
               backgroundColor: "#333333",
               transition:
-                "height 0.3s ease, width 0.3s ease, padding 0.3s ease",
+                "height 0.6s ease, width 0.6s ease, padding 0.6s ease",
               ...inputStyle1,
             }}
             onChange={showEyeIcon}

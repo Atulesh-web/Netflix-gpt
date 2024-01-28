@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import Header from "./Header";
+import { useNavigate } from "react-router-dom";
 const SignUp = () => {
+  const navigate = useNavigate();
   const [inputStyle, setInputStyle] = useState({
     display: "none",
     height: 0,
@@ -31,6 +32,11 @@ const SignUp = () => {
       }
     }
   };
+
+  const handleButtonClick = () => {
+    let emailID = document.getElementById("email");
+    navigate("/setpassword", { state: { data: { email: emailID.value } } });
+  };
   return (
     <div>
       <div className="flex absolute ">
@@ -40,13 +46,13 @@ const SignUp = () => {
             alt=""
           />
         </div>
-        <div style={{marginLeft: "820px"}}>
+        <div style={{ marginLeft: "820px" }}>
           <button className="bg-red-600 h-8 w-20 m-8 mr-40 text-base font-medium text-white rounded-md p-1">
             Sign In
           </button>
         </div>
       </div>
-      <div className=" h-2/4 w-2/3 absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-24 text-center font-sans tracking-wide">
+      <div className=" h-2/4 w-2/3 absolute inset-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-24 text-center font-sans tracking-wide pt-10 rounded-lg">
         <h1 style={{ fontSize: "3rem" }} className=" text-white font-extrabold">
           Unlimited movies, TV shows and more
         </h1>
@@ -82,33 +88,48 @@ const SignUp = () => {
                 transition: "height 0.3s ease, width 0.3s ease",
                 ...inputStyle,
               }}
-              className="outline-none caret-white"
+              className="outline-none caret-white text-white"
               onBlur={removeStyleStates}
             />
           </div>
           <div>
-            <button className="bg-red-600 h-14 ml-3 w-52 text-2xl font-medium text-white rounded-md p-1">
-            <Link to={'/setpassword'}> Get Started </Link> <span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 inline-block -mt-1"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="m8.25 4.5 7.5 7.5-7.5 7.5"
-                />
-              </svg>
+            {/* <Link to={{
+          pathname: '/setpassword',
+          state: { data: dataToSend },
+        }}>   */}
+            <button
+              className="bg-red-600 h-14 ml-2 w-52 text-2xl font-medium text-white rounded-md"
+              onClick={handleButtonClick}
+            >
+              Get Started
+              <span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6 inline-block -mt-1"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                  />
+                </svg>
               </span>
             </button>
+            {/* </Link> */}
           </div>
         </div>
       </div>
-      <Header className="relative" />
+      <Header
+        className="relative"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%)",
+        }}
+      />
     </div>
   );
 };

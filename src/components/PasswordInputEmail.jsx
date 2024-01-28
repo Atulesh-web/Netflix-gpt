@@ -1,5 +1,5 @@
 
-const PasswordInputsEmail = () => {
+const PasswordInputsEmail = (props) => {
   return (
        <div
             style={{ width: "90%" }}
@@ -17,7 +17,7 @@ const PasswordInputsEmail = () => {
             </p>
             <input
               type="email"
-              value={"atuleshsharma"}
+              value={props?.emailValue?.email}
               name=""
               id="email"
               autoComplete="username"
